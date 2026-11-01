@@ -1,307 +1,220 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CECASP · Estación meteorológica · Piura, Perú</title>
-<meta name="description" content="Clima de hoy, registro de datos, ETo y ETc de la estación meteorológica del CECASP (Centro de Experimentación y Capacitación en Agricultura Sostenible y de Precisión), Piura, Perú.">
-<meta property="og:title" content="CECASP · Estación meteorológica · Piura, Perú"><meta property="og:image" content="https://josuevaldiviezos.github.io/estacion-meteo/logo-completo.jpg">
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CECASP · Agricultura sostenible y resiliente al cambio climático</title>
 <link rel="icon" type="image/png" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
 <style>
-:root{--bg:#f4f7f1;--panel:#fff;--ink:#0a2f1e;--text:#1d3a2c;--mute:#52695c;--line:#d6e0d6;--leaf:#1b7a45;--sun:#fec418;--sunink:#8a5d00}
-@media (prefers-color-scheme:dark){:root{--bg:#0b1a13;--panel:#122a1e;--ink:#eef6ef;--text:#dbe8de;--mute:#9fb9aa;--line:#254334;--leaf:#5fcb8a;--sunink:#fec418}}
-[hidden]{display:none!important}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif}
-h1,h2,h3,.big{font-family:"Bricolage Grotesque",Georgia,sans-serif;line-height:1.15;margin:0;color:var(--ink)}
-a{color:var(--leaf)}.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-.bar{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
-.bar-in{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px;padding-bottom:8px;min-height:72px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);flex:1 1 0;min-width:0}
-.brand img{height:44px;width:auto;background:#fff;border-radius:10px;padding:4px 6px;flex:none}.brand b{display:block;font:700 16px/1.25 "Bricolage Grotesque",sans-serif;text-wrap:balance;max-width:36ch}.brand small{color:var(--mute);font-size:14px}
-.menu-btn{display:inline-flex;align-items:center;gap:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font:600 16px "Source Sans 3",sans-serif;cursor:pointer}
-.menu-btn i{display:grid;gap:4px}.menu-btn i b{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;transition:transform .2s,opacity .2s}
-.menu-btn[aria-expanded=true] i b:nth-child(1){transform:translateY(6px) rotate(45deg)}.menu-btn[aria-expanded=true] i b:nth-child(2){opacity:0}.menu-btn[aria-expanded=true] i b:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-nav{display:none;position:absolute;right:20px;top:calc(100% + 6px);width:300px;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.25);padding:8px;z-index:6}
-nav.open{display:flex}nav a{padding:12px 14px;border-radius:10px;text-decoration:none;color:var(--text);font-weight:600;font-size:17px}
-nav a:hover{background:var(--bg)}nav a.on{background:var(--bg);color:var(--leaf);box-shadow:inset 3px 0 var(--sun)}
-@media(max-width:600px){.brand b{font-size:14.5px}.brand img{height:40px}.menu-btn{padding:11px 12px}.menu-btn span{display:none}nav{left:0;right:0;width:auto;top:100%;border-radius:0 0 14px 14px;border-width:0 0 1px}}
-a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
-.hero{background:#0a2f1e repeating-conic-gradient(from 0deg at 88% 125%,rgba(254,196,24,.13) 0 5deg,transparent 5deg 15deg);color:#e9f3ea}
-.hero-in{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end;padding:56px 20px 48px}
-.eyebrow{margin:0 0 12px;color:#fec418;font-weight:600;letter-spacing:.02em}
-.hero h1{color:#fff;font-size:clamp(34px,5.5vw,54px);max-width:14ch}.lead{max-width:48ch;color:#bcd2c2;margin:16px 0}
-.pill{display:inline-block;border:1px solid #3d6b52;border-radius:99px;padding:4px 14px;font-size:15px;color:#d5e6d9;margin:0}
-.pill::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#4cd37e;margin-right:8px}.pill.late::before{background:#fec418}
-.now{background:rgba(255,255,255,.07);border:1px solid #2f5a43;border-radius:16px;padding:22px 26px}
-.now span,.now p{color:#bcd2c2;margin:0;font-size:15px}.big{font-size:clamp(64px,10vw,104px);color:#fec418}.big small{font-size:.32em;color:#bcd2c2}
-section.s{padding:48px 0;border-top:1px solid var(--line)}section.s:first-of-type{border:0}
-h2{font-size:30px;margin-bottom:6px}.sub{color:var(--mute);margin:0 0 24px}
-.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.grp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;border-top:4px solid var(--leaf)}
-.grp:nth-child(2){border-top-color:var(--sun)}.grp:nth-child(3){border-top-color:#2a6fa8}.grp:nth-child(4){border-top-color:var(--mute)}
-.grp h3{font-size:17px;margin-bottom:10px}
-.tile{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;padding:9px 0;border-top:1px solid var(--line)}
-.tile span{color:var(--mute);font-size:15px}.tile b{font:700 21px "Bricolage Grotesque",sans-serif;color:var(--ink)}.tile small{flex-basis:100%;color:var(--mute);font-size:13px}
-.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:16px}.tools label{font-size:15px;color:var(--mute);display:grid;gap:4px}
-select,input,.btn{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
-.btn{display:inline-block;text-decoration:none;font-weight:600;background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}.stats span{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:3px 14px;font-size:15px;color:var(--mute)}.stats b{color:var(--ink)}
-.chart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;height:340px}
-.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-top:22px}
-table{border-collapse:collapse;width:100%;min-width:720px;font-variant-numeric:tabular-nums}
-th,td{text-align:right;padding:9px 12px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}th{color:var(--mute);font-weight:600;background:var(--bg)}
-.social{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;min-height:200px}.card h3{margin-bottom:14px}
-.fb-card{display:grid;gap:12px;justify-items:start}.fb-card b{font:700 18px "Bricolage Grotesque",sans-serif;color:var(--ink)}.fb-card p{margin:0;color:var(--mute)}
-.fbw{background:#fff;border-radius:10px;overflow:hidden;display:flex;justify-content:center;max-width:100%}
-.ic{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:12px;color:#fff;flex:none}
-.ic svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ic.fb{background:#1877f2}.ic.mail{background:#d93025}
-.two{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}.two ul{margin:0;padding-left:20px}
+:root{color-scheme:light;--b50:#f0fdf4;--b100:#dcfce7;--b500:#16a34a;--b600:#15803d;--b700:#166534;--b800:#14532d;--b900:#134e2a;--bamboo:#c48b49;--blue:#0284c7;--s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s300:#cbd5e1;--s500:#64748b;--s600:#475569;--s900:#0f172a;--ink:#1e293b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--s50);color:var(--ink);font:16px/1.6 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+h1,h2,h3,h4{line-height:1.15;margin:0}
+.gt{background:linear-gradient(135deg,var(--b600),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.wrap{max-width:1180px;margin:auto;padding:0 20px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:var(--b100);color:var(--b700);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;border:1px solid #bbf7d0}
+.badge.sq{border-radius:8px;border:0}
+nav{position:fixed;inset:0 0 auto;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--s200);padding-top:env(safe-area-inset-top,0px)}
+.nbar{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--s900)}
+.brand img{height:42px;mix-blend-mode:multiply}.brand b{display:block;font-size:1.25rem;font-weight:800;letter-spacing:-.01em;line-height:1}.brand small{font-size:.62rem;color:var(--b600);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+#menu{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:.86rem;font-weight:600;color:#334155}
+#menu a{color:inherit;text-decoration:none}#menu a:hover{color:var(--b600)}
+#burger{display:none;background:none;border:0;font-size:1.6rem;color:#334155;cursor:pointer}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.75)}100%{box-shadow:0 0 0 10px rgba(255,255,255,0)}}
+@keyframes glow{0%,100%{box-shadow:0 10px 28px -6px rgba(2,132,199,.55),0 0 0 0 rgba(21,128,61,.4)}50%{box-shadow:0 14px 34px -4px rgba(21,128,61,.65),0 0 0 8px rgba(21,128,61,0)}}
+.live{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:14px;background:linear-gradient(135deg,var(--b600),var(--blue));color:#fff;font-weight:800;font-size:1rem;text-decoration:none;animation:glow 2.4s infinite;transition:transform .2s;border:0}
+#menu a.live{color:#fff}.live:hover{transform:translateY(-3px) scale(1.02)}.live i{width:10px;height:10px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+.live.sm{padding:10px 18px;font-size:.78rem;border-radius:12px}.live.dk{background:linear-gradient(135deg,#f59e0b,#fcd34d);color:var(--b800);animation:none;box-shadow:0 12px 30px -6px rgba(245,158,11,.6)}
+.live.dk i{background:var(--b800);animation:none}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:14px;background:#fff;border:1px solid var(--s200);color:#334155;font-weight:700;text-decoration:none;font-size:1rem;transition:all .25s;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:rgba(22,163,74,.5);transform:translateY(-3px);box-shadow:0 12px 30px -10px rgba(22,163,74,.2)}
+.btn.g{background:var(--b600);border-color:var(--b600);color:#fff}.btn.g:hover{background:var(--b700)}
+@media(max-width:860px){#burger{display:block}.nbar>.live{display:none}#menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:14px;padding:16px 20px 20px;background:#fff;border-bottom:1px solid var(--s200)}#menu.open{display:flex}}
+#menu .mlive{display:none}@media(max-width:860px){#menu .mlive{display:block}}
+#inicio{padding:128px 0 90px;text-align:center;background:radial-gradient(circle at 15% 10%,#dcfce7 0,transparent 38%),radial-gradient(circle at 88% 18%,#e0f2fe 0,transparent 36%),var(--s50)}
+#inicio .logo{height:132px;mix-blend-mode:multiply;margin-bottom:12px}
+#inicio h1{font-size:clamp(2.1rem,6vw,3.8rem);font-weight:800;letter-spacing:-.025em;max-width:880px;margin:20px auto 32px}
+#inicio p.lead{max-width:680px;margin:0 auto 32px;color:var(--s600);font-size:1.1rem}
+.acts{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;max-width:900px;margin:56px auto 0;text-align:left}
+.feat{background:rgba(255,255,255,.85);border:1px solid var(--s200);border-left:4px solid var(--b500);border-radius:16px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.feat small{display:block;color:var(--s500);font-size:.74rem;font-weight:500}.feat b{font-size:.9rem}
+section.s{padding:84px 0;border-top:1px solid var(--s200);background:#fff}section.s.g{background:var(--s100)}
+.head{text-align:center;max-width:720px;margin:0 auto 44px}.head h2,.t2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;letter-spacing:-.02em}.head p{color:var(--s600);margin:10px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}@media(max-width:860px){.two{grid-template-columns:1fr;gap:30px}}
+.card{background:#fff;border:1px solid var(--s200);border-radius:20px;padding:22px;transition:all .3s}.card:hover{border-color:rgba(22,163,74,.4);transform:translateY(-4px);box-shadow:0 12px 30px -10px rgba(22,163,74,.18)}
+.card h3{font-size:1.05rem;margin:10px 0 6px}.card p{margin:0;color:var(--s600);font-size:.9rem}
+.card svg{width:42px;height:42px;stroke:var(--b600);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;background:var(--b100);border-radius:12px;padding:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.stat b{display:block;font-size:1.9rem;font-weight:800;color:var(--b600)}.stat small{color:var(--s500);font-weight:500}
+.vgrid{display:grid;grid-template-columns:1.9fr 1fr;gap:26px;align-items:start}@media(max-width:900px){.vgrid{grid-template-columns:1fr}}
+.panel{background:rgba(255,255,255,.88);border:1px solid var(--s300);border-radius:26px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.vhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:2px 8px 10px;font-size:.78rem;color:var(--s500)}.vhead b{font-family:ui-monospace,monospace;font-weight:500}
+#viewer{position:relative;height:clamp(340px,60vw,560px);border-radius:18px;overflow:hidden;background:linear-gradient(#1e293b,#0f172a);touch-action:none;cursor:grab}
+#viewer:active{cursor:grabbing}#viewer.big{position:fixed;inset:0;height:100%;z-index:200;border-radius:0}.vc{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px;z-index:5}.vc button{border:0;border-radius:10px;background:rgba(15,23,42,.72);color:#fff;padding:8px 11px;font:600 .75rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(4px);text-align:left}.vc button:hover{background:rgba(21,128,61,.9)}.vc button.on{background:var(--b600)}#vCv{transition:opacity .35s}canvas{display:block;width:100%;height:100%}
+#vload,#note{position:absolute;left:12px;bottom:12px;font-size:.78rem;padding:5px 12px;border-radius:99px;background:rgba(0,0,0,.6);color:#e2e8f0}#note[hidden]{display:none}
+#ghcards{display:grid;gap:12px}
+.gh{text-align:left;font:inherit;background:#fff;border:1px solid var(--s200);border-left:4px solid var(--c);border-radius:16px;padding:16px 18px;cursor:pointer;transition:all .25s;color:inherit}
+.gh:hover{transform:translateY(-3px);box-shadow:0 12px 30px -10px rgba(15,23,42,.18)}.gh h4{font-size:1rem}.gh p{margin:4px 0 0;font-size:.82rem;color:var(--s600)}
+.gh .more{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--s200);font-size:.82rem;color:var(--s600)}.gh .more ul{margin:6px 0 0;padding-left:1.1em}
+.gh.on{background:var(--b50);box-shadow:0 8px 24px -10px rgba(22,163,74,.35)}.gh.on .more{display:block}
+#estacion{padding:84px 0;color:#fff;background:linear-gradient(135deg,var(--b800) 0%,#0c4a6e 100%);position:relative;overflow:hidden}
+#estacion::before{content:"";position:absolute;width:460px;height:460px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(#38bdf855,transparent 70%)}
+#estacion .in{position:relative;display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap}
+#estacion h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin:14px 0 12px}#estacion p{max-width:560px;margin:0;color:#d1fae5}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.14);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.chip i{width:9px;height:9px;border-radius:50%;background:#4ade80;animation:pulse 1.4s infinite}
+form label{display:block;font-size:.75rem;font-weight:700;color:#334155;margin-bottom:4px}
+form input,form textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--s300);background:#fff;font:inherit;font-size:.9rem;color:var(--s900)}
+form input:focus,form textarea:focus{outline:0;border-color:var(--b600)}.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}@media(max-width:600px){.f2{grid-template-columns:1fr}}
+#visit-alert{margin-top:14px;padding:14px;border-radius:12px;background:#d1fae5;border:1px solid #6ee7b7;color:#065f46;font-size:.82rem}#visit-alert[hidden]{display:none}
+.glass{background:rgba(255,255,255,.88);border:1px solid var(--s300);border-radius:24px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.glass p{font-size:.85rem;color:var(--s600);margin:8px 0}.glass .r{display:flex;gap:10px;font-size:.85rem;color:var(--s600);margin-top:6px}
+.map{height:250px;border-radius:24px;overflow:hidden;border:1px solid var(--s300);margin-top:18px;position:relative;background:var(--s200)}.map iframe{width:100%;height:100%;border:0}
+footer{border-top:1px solid var(--s200);padding:34px 0;background:#fff;font-size:.8rem;color:var(--s500)}footer .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+footer img{height:38px;mix-blend-mode:multiply;vertical-align:middle;margin-right:10px}
+.rev{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}.rev.in{opacity:1;transform:none}
+</style></head><body>
+<nav><div class="wrap nbar">
+<a class="brand" href="#inicio"><img src="img/logo.jpg" alt="Logo CECASP"><span><b>CECASP</b><small>Piura - Perú</small></span></a>
+<button id="burger" aria-label="Menú">☰</button>
+<ul id="menu"><li><a href="#inicio">Inicio</a></li><li><a href="#nosotros">¿Quiénes somos?</a></li><li><a href="#hacemos">Qué hacemos</a></li><li><a href="#invernaderos">Invernaderos</a></li><li><a href="#estacion">Estación</a></li><li><a href="#visitas">Visitas</a></li>
+<li class="mlive"><a class="live sm" href="estacion.html"><i></i>Consultar estación meteorológica</a></li></ul>
+<a class="live sm" href="estacion.html"><i></i>Estación meteorológica en vivo ↗</a>
+</div></nav>
 
-@media(max-width:760px){.hero-in,.two{grid-template-columns:1fr}.hero-in{padding-top:36px}}
-.view{display:none}.view.on{display:block}
-.btn.sun{background:#fec418;color:#0a2f1e;border-color:#fec418;margin-top:18px}
-.strip{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:-34px auto 48px}
-.kt{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 10px 24px rgba(0,0,0,.10)}
-.kt span{color:var(--mute);font-size:14px}.kt b{display:block;font:700 24px "Bricolage Grotesque",sans-serif;color:var(--ink)}
-.now p#mm{color:#fec418;font-weight:600;font-size:16px;margin:2px 0 8px}.fbcol{max-width:560px}
-td:first-child,th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}th:first-child{background:var(--bg)}
-th{white-space:normal;min-width:92px;font-size:13px;line-height:1.25;vertical-align:bottom}th small{display:block;font-weight:400}
-footer{background:#0a2f1e;color:#bcd2c2;padding:40px 0 22px;font-size:15px}
-.fgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
-.fl{display:flex;align-items:center;gap:14px}.fl img{height:56px;background:#fff;border-radius:12px;padding:5px 8px}
-.fl b{display:block;color:#fff;font:700 18px/1.25 "Bricolage Grotesque",sans-serif;max-width:30ch}.fl span{color:#bcd2c2}
-.fc h3{color:#fff;font-size:17px;margin-bottom:10px}
-.ct2{display:flex;align-items:center;gap:12px;color:#e9f3ea;text-decoration:none;padding:6px 0;overflow-wrap:anywhere}.ct2:hover{color:#fec418}
-.copy{border-top:1px solid #1f4a35;margin:26px 0 0;padding-top:16px;font-size:14px}
-@media(max-width:760px){.fgrid{grid-template-columns:1fr}}
-.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-.pc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden}
-.pc::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--cc)}
-.pc h3{display:flex;align-items:center;gap:10px;font-size:18px;margin-bottom:14px}
-.gi{width:34px;height:34px;border-radius:10px;background:var(--cc);color:#fff;display:grid;place-items:center;flex:none}
-.gi svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.hl{color:var(--mute);font-size:14px}.hv{font:700 44px/1.05 "Bricolage Grotesque",sans-serif;color:var(--ink)}.hv small{font-size:18px;color:var(--mute);font-weight:500;margin-left:4px}
-.row2{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-top:1px solid var(--line)}.row2:first-of-type{border-top:0}
-.row2 span{color:var(--mute);font-size:15px}.row2 b{white-space:nowrap;font:700 19px "Bricolage Grotesque",sans-serif;color:var(--ink);text-align:right}
-.sh{display:block;font-style:normal;color:var(--mute);font-size:13px;font-weight:400}.cl{font-style:normal;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:0 7px;margin-left:6px;color:var(--mute)}
-.rb,.gb{height:10px;border-radius:99px;background:var(--line);position:relative;margin:12px 0 6px}
-.rb i{position:absolute;top:-5px;width:6px;height:20px;border-radius:3px;background:var(--ink);transform:translateX(-50%);box-shadow:0 0 0 2px var(--panel)}
-.gb i{display:block;height:100%;border-radius:99px;background:var(--cc)}
-.re,.ge{display:flex;justify-content:space-between;gap:10px;color:var(--mute);font-size:13px}.re b{display:block;color:var(--ink);font:700 17px "Bricolage Grotesque",sans-serif}.re span:last-child{text-align:right}
-.chip{display:inline-block;border-radius:99px;padding:2px 12px;font-weight:600;font-size:14px;background:var(--bg);border:1px solid var(--line);color:var(--ink)}.chip.warn{background:#fff3cd;color:#6b4a00;border-color:#fec418}
-.cmp{display:flex;align-items:center;gap:16px;margin-bottom:8px}.cmp svg{width:112px;height:112px;flex:none}
-.today{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:14px}@media(max-width:640px){.today{grid-template-columns:1fr}}
-.ic.ig{background:linear-gradient(45deg,#f9a63a,#e1306c,#7a3bd1)}
-</style>
-</head>
-<body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
-<symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
-<symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="#fff" stroke="none"/></symbol>
-</defs></svg>
-<header class="bar"><div class="wrap bar-in">
- <a class="brand" href="#inicio" title="Centro de Experimentación y Capacitación en Agricultura Sostenible y de Precisión"><img src="logo.png" alt="Logo del CECASP"><span><b>CECASP</b><small>Estación meteorológica · Piura, Perú</small></span></a>
- <button class="menu-btn" id="mb" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><i><b></b><b></b><b></b></i><span>Menú</span></button>
- <nav id="menu" aria-label="Menú principal"><a href="#inicio" data-v="inicio">Inicio</a><a href="#resumen" data-v="resumen">Resumen del día</a><a href="#parametros" data-v="parametros">Parámetros y gráficas</a><a href="#novedades" data-v="novedades">Novedades</a><a href="#proyecto" data-v="proyecto">Sobre el CECASP</a></nav>
+<header id="inicio"><div class="wrap">
+<img class="logo" src="img/logo.jpg" alt="Logo CECASP">
+<div><span class="badge">🌱 Agricultura sostenible y resiliente al cambio climático · Piura</span></div>
+<h1>Centro de Experimentación y Capacitación en <span class="gt">Agricultura Sostenible y de Precisión</span></h1>
+<div class="acts"><a class="live" href="estacion.html"><i></i>Consultar estación meteorológica ↗</a><a class="btn" href="#invernaderos">Conoce los invernaderos</a></div>
+<div class="feats"><div class="feat"><small>Invernadero bambú</small><b>Hidroponía sustentable</b></div><div class="feat" style="border-left-color:var(--blue)"><small>Fertirriego automatizado</small><b>Control de nutrientes</b></div><div class="feat" style="border-left-color:#f59e0b"><small>Datos actualizados</small><b>Estación meteorológica</b></div><div class="feat" style="border-left-color:#10b981"><small>Transferencia técnica</small><b>Capacitación agrícola</b></div></div>
 </div></header>
 
-<div class="view" id="inicio"><section class="hero"><div class="wrap hero-in">
- <div><p class="eyebrow">Estación meteorológica · Piura, Perú</p>
- <h1>El clima de la estación, al día</h1>
- <p class="lead">Datos reales medidos por la estación del proyecto: lo que pasa hoy y cómo ha cambiado en los últimos días.</p>
- <p class="pill" id="estado">Cargando datos…</p><p><a class="btn sun" href="#resumen">Ver resumen del día</a></p></div>
- <div class="now" aria-live="polite"><span>Temperatura ahora</span><div class="big" id="bigT">–<small>°C</small></div><p id="mm"></p><p>La estación envía una lectura cada 30 minutos</p></div>
-</div></section>
-<div class="wrap" style="margin:44px auto 56px"><h2>Última lectura</h2><p class="sub" id="lr"></p><div class="gcards" id="cards"></div></div></div>
+<section class="s" id="nosotros"><div class="wrap two rev"><div>
+<span class="badge sq">¿Quiénes somos?</span><h2 class="t2" style="margin:12px 0 16px">Transformando la agricultura del norte peruano con <span class="gt">tecnología eficiente</span></h2>
+<p style="color:var(--s600)">El <b>CECASP</b> fue inaugurado en Piura como parte del proyecto “Agricultura sostenible y resiliente a los cambios climáticos”, financiado por la Cooperación italiana y realizado por la IILA.</p>
+<p style="color:var(--s600)">Es el resultado de la colaboración con la Universidad Nacional de Piura, el Gobierno local y los agricultores de la zona, que reciben formación en nuevas técnicas de cultivo para enfrentar los efectos del cambio climático, en primer lugar la grave escasez de recursos hídricos.</p></div>
+<div class="grid" style="grid-template-columns:1fr 1fr"><div class="card stat"><b>4</b><small>Invernaderos especializados</small></div><div class="card stat"><b style="color:var(--blue)">11</b><small>Empresas italianas del sector en la inauguración</small></div><div class="card"><h3>Formación a agricultores</h3><p>Nuevas técnicas de cultivo frente al cambio climático.</p></div><div class="card"><h3>Modelo replicable</h3><p>Un modelo exitoso y escalable, con impacto concreto en las familias de la zona.</p></div></div></div></section>
 
-<section class="s view" id="resumen"><div class="wrap"><h2>Resumen del día</h2><p class="sub" id="tnote"></p><div class="today" id="today"></div></div></section>
+<section class="s g" id="hacemos"><div class="wrap rev"><div class="head"><span class="badge sq">Qué hacemos</span><h2 style="margin-top:12px">Cuatro líneas de trabajo</h2></div><div class="grid">
+<div class="card"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg><h3>Experimentación</h3><p>Ensayamos cultivos y sistemas de producción en condiciones controladas.</p></div>
+<div class="card"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg><h3>Capacitación</h3><p>Talleres y visitas guiadas para que más personas apliquen lo aprendido.</p></div>
+<div class="card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg><h3>Agricultura de precisión</h3><p>Datos y tecnología para regar y cuidar justo lo que el cultivo necesita.</p></div>
+<div class="card"><svg viewBox="0 0 24 24"><path d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15z"/><path d="M5 19l8-8"/></svg><h3>Producción sostenible</h3><p>Producimos cuidando los recursos para las próximas generaciones.</p></div></div></div></section>
 
-<section class="s view" id="parametros"><div class="wrap"><h2>Parámetros y gráficas</h2><p class="sub">Elige el parámetro y el periodo que quieres ver.</p>
-<div class="tools">
- <label>Tipo de gráfica<select id="kind"><option value="line">Evolución en el tiempo</option><option value="daily">Resumen diario de temperatura</option><option value="dual">Temperatura y humedad</option><option value="rose">Rosa de los vientos</option><option value="rain">Lluvia por día</option><option value="eto">Evapotranspiración de referencia (ETo)</option><option value="etc">Agua que necesita cada cultivo (ETc)</option></select></label>
- <label id="pw">Parámetro<select id="par"></select></label>
- <label>Periodo<select id="per"><option value="1" selected>Hoy</option><option value="7">Últimos 7 días</option></select></label>
-</div>
-<div class="stats" id="stats"></div><p class="sub" id="hint" style="margin:0 0 12px"></p>
-<div class="chart"><canvas id="ch" aria-label="Gráfica del parámetro elegido"></canvas></div>
-<h3 style="font-size:22px;margin:28px 0 0">Registro de lecturas</h3>
-<div class="scroll" style="margin-top:12px"><table><thead id="th"></thead><tbody id="tb"></tbody></table></div>
-<h3 style="font-size:22px;margin:28px 0 0">Descargar datos históricos</h3>
-<p class="sub" style="margin:6px 0 12px">Las gráficas de lecturas muestran hasta 30 días; la ETo y la ETc pueden verse hasta todo el historial. Para trabajar con los datos, descarga los archivos (se abren en Excel). Lecturas: una cada 30 minutos desde octubre de 2024, con todos los parámetros de la estación. ETo: un valor por día desde octubre de 2024. ETc: por cultivo, desde el día en que cada lote entró al campo.</p>
-<p style="display:flex;flex-wrap:wrap;gap:10px;margin:0"><a class="btn" href="data/lecturas.csv" download>Todas las lecturas (CSV)</a><a class="btn" href="data/diario.csv" download>ETo diaria (CSV)</a><a class="btn" href="data/etc_diaria.csv" download>ETc por cultivo (CSV)</a></p>
-</div></section>
+<section class="s" id="invernaderos"><div class="wrap rev"><div class="head"><span class="badge sq">Infraestructura tecnológica</span><h2 style="margin-top:12px">Modelos de nuestros <span class="gt">invernaderos</span></h2><p>Inspecciona la arquitectura de los ambientes protegidos del centro experimental.</p></div>
+<div class="vgrid"><div class="panel"><div class="vhead"><b id="vtitle">Invernadero bambú</b><span>Arrastra: girar · rueda o pellizco: zoom · clic derecho o Mayús: mover · doble clic: restablecer</span></div>
+<div id="viewer"><canvas id="vCv"></canvas><div class="vc"><button id="zin" title="Acercar">＋</button><button id="zout" title="Alejar">－</button><button id="sign" title="Acercar al cartel">🔍 Cartel</button><button id="xray" title="Cubierta transparente">◐ Interior</button><button id="rst" title="Restablecer vista">⟲</button><button id="big" title="Ampliar">⛶</button></div><span id="vload">Cargando modelo…</span><span id="note" hidden>Modelo en preparación</span></div></div>
+<div id="ghcards"></div></div></div></section>
 
-<section class="s view" id="novedades"><div class="wrap"><h2>Novedades</h2><p class="sub">Lo último que publicamos en Facebook. También estamos en Instagram.</p>
-<div class="fbcol"><article class="card"><div id="fb"></div></article><p style="margin-top:14px"><a class="btn" href="https://www.facebook.com/profile.php?id=61556795847342" target="_blank" rel="noopener">Abrir en Facebook</a> <a class="btn" href="https://www.instagram.com/agrososteniblepiura/" target="_blank" rel="noopener">Ver Instagram</a></p></div></div></section>
+<section id="estacion"><div class="wrap in rev"><div><span class="chip"><i></i>Datos actualizados</span><h2>Estación meteorológica del CECASP</h2><p>Consulta las condiciones del campo experimental: clima del día, registros y gráficas con datos actualizados.</p></div>
+<a class="live dk" href="estacion.html"><i></i>Consultar estación meteorológica ↗</a></div></section>
 
-<section class="s view" id="proyecto"><div class="wrap"><h2>Sobre el CECASP</h2>
-<div class="two">
- <div><p>El CECASP (Centro de Experimentación y Capacitación en Agricultura Sostenible y de Precisión) es un centro de Piura, Perú. Esta página reúne los datos de su estación meteorológica: el clima de hoy, el registro histórico y gráficas para analizar periodos concretos.</p></div>
- <div><h3 style="font-size:18px;margin-bottom:8px">Qué mide la estación</h3><ul><li>Temperatura del aire: media, mínima y máxima del día</li><li>Humedad relativa: media, mínima y máxima del día</li><li>Punto de rocío y presión atmosférica</li><li>Viento: velocidad media, mínima y ráfaga máxima; dirección y su constancia</li><li>Radiación solar</li><li>Precipitación: por intervalo y total diario</li><li>Suelo: temperatura y humedad</li><li>Humedad de la hoja</li><li>Equipo: voltaje de la batería</li></ul></div>
-</div></div></section>
+<section class="s g" id="visitas"><div class="wrap two rev" style="align-items:start"><div>
+<span class="badge sq">Agendar visita guiada</span><h2 class="t2" style="margin:12px 0 12px">Visita las instalaciones del CECASP</h2>
+<p style="color:var(--s600);font-size:.9rem;margin:0 0 26px">Coordinamos visitas técnico-educativas para agricultores, colegios profesionales e investigadores.</p>
+<form id="visit-form"><div class="f2"><div><label>Nombre completo</label><input name="n" required placeholder="Ej. Ing. María Silva"></div><div><label>Correo electrónico</label><input name="c" type="email" required placeholder="ejemplo@unp.edu.pe"></div></div>
+<div class="f2"><div><label>Institución / organización</label><input name="i" required placeholder="Universidad / Asociación"></div><div><label>Fecha propuesta</label><input name="f" type="date" required></div></div>
+<div style="margin-bottom:14px"><label>Motivo o interés principal</label><textarea name="m" rows="3" placeholder="Indique si le interesa el invernadero de bambú, hidroponía..."></textarea></div>
+<button class="btn g" style="width:100%;justify-content:center" type="submit">Enviar solicitud de visita</button></form>
+<div id="visit-alert" hidden>✔ Se abrió tu correo con la solicitud lista; solo falta enviarla. Si no se abrió, escribe a contacto@cecasp-piura.org.</div></div>
+<div><div class="glass"><h3 style="font-size:1.1rem">📍 Ubicación principal</h3><p>Campus Universitario de la Universidad Nacional de Piura (UNP), Urb. Miraflores s/n, Distrito de Castilla, Piura, Perú.</p>
+<div class="r">✉ <span>contacto@cecasp-piura.org</span></div><div class="r">☎ <span>+51 (073) 285-822</span></div><div class="r">🕒 <span>[horario]</span></div>
+<p style="margin-top:14px"><a href="https://www.google.com/maps/search/?api=1&query=Universidad+Nacional+de+Piura" target="_blank" rel="noopener noreferrer" style="color:var(--b600);font-weight:700">Ver en Google Maps ↗</a></p></div>
+<div class="map"><iframe title="Ubicación UNP Piura CECASP" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15886.60228790099!2d-80.627!3d-5.181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x903a1005b4b1c1b1%3A0x6b801a2d1d0f8a8a!2sUniversidad%20Nacional%20de%20Piura!5e0!3m2!1ses!2spe!4v1680000000000!5m2!1ses!2spe"></iframe></div></div></div></section>
 
+<footer><div class="wrap"><div><img src="img/logo.jpg" alt=""><b style="color:var(--s900)">CECASP Piura</b> · Agricultura sostenible y resiliente al cambio climático</div><div>Proyecto realizado por la <b>IILA</b> con financiamiento de la <b>Cooperación italiana</b> · <b>Universidad Nacional de Piura</b> · © 2026</div></div></footer>
 
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const M={bambu:'modelos/bambu.glb',ferti:'modelos/ferti.glb',vivero:'modelos/vivero.glb',hidro:'modelos/hidro.glb'},tasks=[];let last=performance.now();
+const mat=(c,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:.85,flatShading:true,...o});
+const MT={path:mat(0xd9c7a0),leaf:mat(0x4f8a4b),glass:mat(0xe8f1ea,{transparent:true,opacity:.5,roughness:.2}),frame:mat(0xf3ede0),roof:mat(0xf0f5ee,{transparent:true,opacity:.65,roughness:.2}),acc:mat(0xd98f3e)};
+const mesh=(g,m)=>new THREE.Mesh(g,m),BX=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+const mkR=cv=>{const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.toneMapping=THREE.ACESFilmicToneMapping;return r};
+const fit=(box,r,cam)=>new ResizeObserver(()=>{const w=box.clientWidth,h=box.clientHeight;if(!w||!h)return;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}).observe(box);
+function lights(sc,ext,amb=0){sc.add(new THREE.HemisphereLight(0xdfeeff,0x8a7a55,1.5));if(amb)sc.add(new THREE.AmbientLight(0xffffff,amb));const s=new THREE.DirectionalLight(0xffe2b0,3);s.position.set(18,28,14);s.castShadow=true;s.shadow.mapSize.set(2048,2048);const c=s.shadow.camera;c.left=c.bottom=-ext;c.right=c.top=ext;c.near=5;c.far=70;s.shadow.bias=-.0004;s.shadow.normalBias=.04;sc.add(s)}
+function makeGH(w=4,l=6,h=1.6){const g=new THREE.Group();
+ const b=mesh(BX(w,.2,l),MT.frame);b.position.y=.1;b.receiveShadow=true;g.add(b);
+ const wl=mesh(BX(w-.1,h,l-.1),MT.glass);wl.position.y=.2+h/2;g.add(wl);
+ const rg=new THREE.CylinderGeometry(w*.577,w*.577,l-.1,3);rg.rotateX(-Math.PI/2);
+ const rf=mesh(rg,MT.roof);rf.scale.y=.4;rf.position.y=.2+h+w*.115;rf.castShadow=true;g.add(rf);
+ for(let i=-1;i<=1;i++){const p=mesh(BX(w*.2,.35,l*.7),MT.leaf);p.position.set(i*w*.28,.37,0);p.castShadow=true;g.add(p)}
+ const d=mesh(BX(.8,1.1,.08),MT.acc);d.position.set(0,.75,l/2-.02);g.add(d);return g}
 
-<footer id="contacto"><div class="wrap">
- <div class="fgrid">
-  <div class="fl"><img src="logo.png" alt="Logo del CECASP"><div><b>CECASP</b><span>Centro de Experimentación y Capacitación en Agricultura Sostenible y de Precisión · Piura, Perú</span></div></div>
-  <div class="fc"><h3>Contacto</h3>
-   <a class="ct2" href="mailto:agrososteniblepiura@gmail.com"><span class="ic mail"><svg><use href="#i-mail"/></svg></span>agrososteniblepiura@gmail.com</a>
-   <a class="ct2" href="https://www.facebook.com/profile.php?id=61556795847342" target="_blank" rel="noopener"><span class="ic fb"><svg><use href="#i-fb"/></svg></span>Síguenos en Facebook</a>
-   <a class="ct2" href="https://www.instagram.com/agrososteniblepiura/" target="_blank" rel="noopener"><span class="ic ig"><svg><use href="#i-ig"/></svg></span>@agrososteniblepiura</a></div>
- </div>
- <p class="copy">© CECASP · Centro de Experimentación y Capacitación en Agricultura Sostenible y de Precisión · Datos de la estación vía DPS-Promatic.</p>
-</div></footer>
+try{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+ $('#burger').onclick=()=>$('#menu').classList.toggle('open');document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>$('#menu').classList.remove('open')))}
+catch(e){console.error(e);document.querySelectorAll('.rev').forEach(el=>el.classList.add('in'))}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
-var FB_PAGE_URL="https://www.facebook.com/profile.php?id=61556795847342";  // dirección real de la página de Facebook (ej. https://www.facebook.com/NombrePagina)
-var C=["#c98a00","#2a6fa8","#1b7a45","#d97706","#7c5a3a","#52695c"],CP=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"];
-// [grupo, [[etiqueta, clave, unidad, nota]]]: todos los parámetros que envía la estación
-var G=[["Temperatura",[["Temperatura","temp","°C"],["Mínima del día","dmintemp","°C"],["Máxima del día","dmaxtemp","°C"]]],
-["Humedad y presión",[["Humedad relativa","rh","%"],["Humedad mínima del día","dminrh","%"],["Humedad máxima del día","dmaxrh","%"],["Punto de rocío","dp","°C"],["Presión atmosférica","press","hPa"]]],
-["Viento",[["Velocidad media","was","km/h"],["Velocidad mínima","wmins","km/h"],["Ráfaga máxima","wgust","km/h"],["Ráfaga máxima del día","dwgust","km/h"],["Dirección","wdir","°"],["Constancia de la dirección","wdsd","","0 variable · 14 constante"]]],
-["Sol y lluvia",[["Radiación solar","sun","W/m²"],["Lluvia del intervalo","rf",""],["Lluvia del día","drf",""]]],
-["Suelo y hoja",[["Temperatura del suelo","soilt","°C"],["Humedad del suelo","soilw","cb","0 muy mojado · 200 muy seco"],["Humedad de la hoja","leaf","","0 mojada · 15 seca"]]],
-["Equipo",[["Voltaje de la batería","vbatt","V"]]]],P=[],TK=[];
-G.forEach(function(g,i){g[1].forEach(function(x){TK.push(x);if(["pwr","si","smsc"].indexOf(x[1])<0)P.push([x[0],x[1],C[i],x[2]])})});
-var D1={temp:1,dmintemp:1,dmaxtemp:1,soilt:1,soilw:1,dp:1,rh:1,dminrh:1,dmaxrh:1,rf:1,drf:1};
-function fmt(k,v){return v==null||v===""?"–":(typeof v=="number"&&D1[k]?v.toFixed(1):v)}
-function fv(k,v,u){if(v==null||v==="")return "–";if(typeof v=="number"&&D1[k])v=v.toFixed(1);if(k=="pwr")return v=="E"?"Panel solar":v=="B"?"Batería":v;if(k=="wdir")return v+"° "+CP[Math.round(v/22.5)%16];return v+(u?" "+u:"")}
-var H={soilw:"0 = suelo muy mojado · 200 = muy seco (centibares).",leaf:"0 = hoja mojada · 15 = hoja seca.",sun:"Energía del sol que llega a la superficie (0 de noche).",wgust:"Velocidad máxima del viento en el intervalo.",dp:"Temperatura a la que el aire se satura y se forma rocío."};
-var $=function(i){return document.getElementById(i)},D=[],chart,sel=$("par"),per=$("per"),kind;
-kind=$("kind");
-sel.innerHTML=P.map(function(p,i){return "<option value="+i+">"+p[0]+"</option>"}).join("");
-function iso(d){return d.toISOString().slice(0,10)}
-var P0,T0=0;
-function datos(){if(!P0||Date.now()-T0>6e4){T0=Date.now();P0=fetch("data/reciente.json?t="+Math.floor(Date.now()/6e4)).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){return j.rows.map(function(r){var o={};j.cols.forEach(function(c,i){o[c]=r[i]});return o})})}return P0}
-function f(v,u){return v==null?"–":v+(u?" "+u:"")}
-function dm(t){return t.slice(8,10)+"/"+t.slice(5,7)+" "+t.slice(11)}
-function tile(l,v,h){return '<div class="tile"><span>'+l+'</span><b>'+v+'</b>'+(h?'<small>'+h+'</small>':'')+'</div>'}
-var IC={t:'<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',h:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',w:'<path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>',s:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',g:'<path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"/><path d="M5 19c3-5 6-8 11-10"/>',e:'<rect x="1" y="6" width="18" height="12" rx="2"/><path d="M23 13v-2"/>'},CL=' <em class="cl">calculado</em>';
-function pc(t,ic,col,body){return '<article class="pc" style="--cc:'+col+'"><h3><span class="gi"><svg viewBox="0 0 24 24">'+IC[ic]+'</svg></span>'+t+'</h3>'+body+'</article>'}
-function row(l,v,h){return '<div class="row2"><span>'+l+(h?'<em class="sh">'+h+'</em>':'')+'</span><b>'+v+'</b></div>'}
-function big(l,v,u){return '<div class="hl">'+l+'</div><div class="hv">'+v+(u?'<small>'+u+'</small>':'')+'</div>'}
-function rng(lo,hi,v,u,a,b,g,k1,k2,k){var p=(lo!=null&&hi!=null&&hi>lo&&v!=null)?Math.min(100,Math.max(0,(v-lo)/(hi-lo)*100)):50;return '<div class="rb" style="background:'+g+'"><i style="left:'+p+'%"></i></div><div class="re"><span>'+a+'<b>'+fmt(k1,lo)+' '+u+'</b></span><span>'+b+'<b>'+fmt(k2,hi)+' '+u+'</b></span></div>'}
-function gau(v,max,l,r){return '<div class="gb"><i style="width:'+(v==null?0:Math.min(100,v/max*100))+'%"></i></div><div class="ge"><span>'+l+'</span><span>'+r+'</span></div>'}
-function compass(d){return '<svg viewBox="0 0 120 120" role="img" aria-label="Dirección del viento"><circle cx="60" cy="60" r="50" fill="none" stroke="var(--line)" stroke-width="3"/><g fill="var(--mute)" font-size="12" font-weight="600" text-anchor="middle"><text x="60" y="19">N</text><text x="105" y="64">E</text><text x="60" y="108">S</text><text x="15" y="64">O</text></g>'+(d==null?'':'<g transform="rotate('+d+' 60 60)"><path d="M60 24 L67 62 L60 56 L53 62 Z" fill="var(--cc)"/></g>')+'<circle cx="60" cy="60" r="4" fill="var(--ink)"/></svg>'}
-function todos(L){return [
- pc("Temperatura","t",C[0],big("Temperatura",fmt("temp",L.temp),"°C")+rng(L.dmintemp,L.dmaxtemp,L.temp,"°C","Mínima del día","Máxima del día","linear-gradient(90deg,#2a6fa8,#fec418,#d9480f)","dmintemp","dmaxtemp")),
- pc("Humedad y presión","h",C[1],big("Humedad relativa",fmt("rh",L.rh),"%")+rng(L.dminrh,L.dmaxrh,L.rh,"%","Mínima del día","Máxima del día","linear-gradient(90deg,#cfe3f3,#2a6fa8)","dminrh","dmaxrh")+'<div style="height:10px"></div>'+row("Punto de rocío",fv("dp",L.dp,"°C"))+row("Presión atmosférica",fv("press",L.press,"hPa"))),
- pc("Viento","w",C[2],'<div class="cmp">'+compass(L.wdir)+'<div>'+big("Velocidad media",fmt("was",L.was),"km/h")+'<p class="sh" style="margin:2px 0 0">Dirección '+fv("wdir",L.wdir)+'</p></div></div>'+row("Velocidad mínima",fv("wmins",L.wmins,"km/h"))+row("Ráfaga máxima",fv("wgust",L.wgust,"km/h"))+row("Ráfaga máxima del día",fv("dwgust",L.dwgust,"km/h"))+row("Constancia de la dirección",fmt("wdsd",L.wdsd))+gau(L.wdsd,14,"0 variable","14 constante")),
- pc("Sol y lluvia","s",C[3],big("Radiación solar",fmt("sun",L.sun),"W/m²")+'<div style="height:8px"></div>'+row("Lluvia del intervalo",fmt("rf",L.rf))+row("Lluvia del día",fmt("drf",L.drf))),
- pc("Suelo y hoja","g",C[4],big("Temperatura del suelo",fmt("soilt",L.soilt),"°C")+'<div style="height:8px"></div>'+row("Humedad del suelo",fv("soilw",L.soilw,"cb"))+gau(L.soilw,200,"0 muy mojado","200 muy seco")+row("Humedad de la hoja",fmt("leaf",L.leaf))+gau(L.leaf,15,"0 mojada","15 seca")),
- pc("Equipo","e",C[5],row("Voltaje de la batería",fv("vbatt",L.vbatt,"V")))].join("")}
-function hoy(A,L){var td=A.filter(function(r){return r.ts.slice(0,10)==L.ts.slice(0,10)}),v=function(k){return td.map(function(r){return r[k]}).filter(function(x){return x!=null})},pm=function(k,u){var a=v(k);return a.length?r1(avg(a))+" "+u:"–"};
- $("tnote").textContent="Máximas y mínimas: las envía la estación. Los promedios los calcula esta página con las "+td.length+" lecturas de hoy.";
- $("today").innerHTML=[pc("Temperatura","t",C[0],row("Máxima",fv("dmaxtemp",L.dmaxtemp,"°C"))+row("Mínima",fv("dmintemp",L.dmintemp,"°C"))+row("Promedio",pm("temp","°C"),"calculado")),
- pc("Humedad","h",C[1],row("Máxima",fv("dmaxrh",L.dmaxrh,"%"))+row("Mínima",fv("dminrh",L.dminrh,"%"))+row("Promedio",pm("rh","%"),"calculado")),
- pc("Viento","w",C[2],row("Ráfaga máxima del día",fv("dwgust",L.dwgust,"km/h"))+row("Promedio de velocidad",pm("was","km/h"),"calculado")),
- pc("Sol y lluvia","s",C[3],row("Lluvia del día",fmt("drf",L.drf))+row("Radiación máxima",v("sun").length?Math.max.apply(0,v("sun"))+" W/m²":"–","calculado"))].join("")}
-function latest(){datos().then(function(A){var L=A[A.length-1],m=Math.round((Date.now()-5*36e5-Date.parse(L.ts+":00Z"))/6e4);
- $("bigT").innerHTML=Number(L.temp).toFixed(1)+"<small>°C</small>";
- $("mm").textContent=L.dmaxtemp==null?"":"Máx. "+fmt("dmaxtemp",L.dmaxtemp)+" °C · Mín. "+fmt("dmintemp",L.dmintemp)+" °C hoy";
- $("cards").innerHTML=todos(L);$("lr").textContent="Datos de la estación del "+dm(L.ts).replace(" "," a las ")+".";hoy(A,L);
- $("estado").className=m>45?"pill late":"pill";
- $("estado").textContent=(m>45?"Sin lecturas nuevas. ":"")+"Última lectura: "+dm(L.ts)+" (hace "+m+" min)";
-}).catch(function(){$("estado").textContent="Aún no hay datos para mostrar"})}
-var AV=null;
-function span(){var v=+per.value;if(!v||v>30)v=30;var b=AV?AV[1]:iso(new Date(Date.now()-5*36e5));return [iso(new Date(Date.parse(b)-(v-1)*864e5)),b]}
-function fillPer(A){AV=[A[0].ts.slice(0,10),A[A.length-1].ts.slice(0,10)]}
-function load(){datos().then(function(A){fillPer(A);var s=span();D=A.filter(function(r){var d=r.ts.slice(0,10);return d>=s[0]&&d<=s[1]});if($("parametros").classList.contains("on"))draw();table()}).catch(function(){})}
-function table(){$("th").innerHTML="<tr><th>Fecha y hora</th>"+TK.map(function(x){return "<th>"+x[0]+(x[2]?"<small>"+x[2]+"</small>":"")+"</th>"}).join("")+"</tr>";$("tb").innerHTML=D.slice(-60).reverse().map(function(r){return "<tr><td>"+dm(r.ts)+"</td>"+TK.map(function(x){var v=r[x[1]];return "<td>"+(v==null?"–":v)+"</td>"}).join("")+"</tr>"}).join("")}
-function ax(){var c=getComputedStyle(document.documentElement);return{t:c.getPropertyValue("--mute").trim(),g:c.getPropertyValue("--line").trim()}}
-function chips(a){$("stats").innerHTML=a.map(function(x){return "<span>"+x[0]+" <b>"+x[1]+"</b></span>"}).join("")}
-function avg(a){return a.reduce(function(x,y){return x+y},0)/a.length}
-function r1(x){return Math.round(x*10)/10}
-function make(cfg){try{chart=new Chart($("ch"),cfg)}catch(e){}}
-function opts(c,extra){var o={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.t}}},scales:{x:{ticks:{color:c.t,maxTicksLimit:10},grid:{color:c.g}},y:{ticks:{color:c.t},grid:{color:c.g}}}};for(var k in extra){if(k=="scales")for(var s in extra.scales)o.scales[s]=extra.scales[s];else o[k]=extra[k]}return o}
-function series(){var lab=[],prev=null,idx=[];D.forEach(function(r,i){var t=new Date(r.ts).getTime();if(prev&&t-prev>45*6e4){lab.push("");idx.push(null)}lab.push(per.value=="1"?r.ts.slice(11):dm(r.ts));idx.push(i);prev=t});return{lab:lab,idx:idx}}
-function line(key){var q=series();return q.idx.map(function(i){return i==null?null:D[i][key]})}
-var tk=0;
-function draw(){if(chart)chart.destroy();var k=kind.value,t=++tk;$("pw").hidden=k!="line";$("hint").textContent="";$("stats").innerHTML="";
- if(k=="eto")return gEto(t);if(k=="etc")return gEtc(t);
- if(!D.length)return;
- ({line:gLine,daily:gDaily,dual:gDual,rose:gRose,rain:gRain})[k]()}
-function gLine(){var p=P[sel.value],c=ax(),v=D.map(function(r){return r[p[1]]}).filter(function(x){return x!=null}),u=p[3]?" "+p[3]:"",n=function(x){return r1(x)+u};
- $("hint").textContent=H[p[1]]||"";
- if(v.length)chips([["Máxima",n(Math.max.apply(0,v))],["Mínima",n(Math.min.apply(0,v))],["Promedio",n(avg(v))]]);
- make({type:"line",data:{labels:series().lab,datasets:[{label:p[0]+u,data:line(p[1]),borderColor:p[2],backgroundColor:p[2]+"22",fill:true,tension:.3,spanGaps:false,pointRadius:D.length>120?0:3}]},options:opts(c)})}
-function gDaily(){var m={},c=ax();D.forEach(function(r){(m[r.ts.slice(0,10)]=m[r.ts.slice(0,10)]||[]).push(r)});var k=Object.keys(m).sort(),mn=[],mx=[],av=[];
- k.forEach(function(d){var a=m[d],t=a.map(function(r){return r.temp}).filter(function(x){return x!=null}),lo=a.map(function(r){return r.dmintemp}).filter(function(x){return x!=null}),hi=a.map(function(r){return r.dmaxtemp}).filter(function(x){return x!=null});
-  mn.push(Math.min.apply(0,lo.length?lo:t));mx.push(Math.max.apply(0,hi.length?hi:t));av.push(r1(avg(t)))});
- $("hint").textContent="Cada barra va de la temperatura mínima a la máxima del día; la línea es el promedio.";
- chips([["Máxima",r1(Math.max.apply(0,mx))+" °C"],["Mínima",r1(Math.min.apply(0,mn))+" °C"],["Promedio",r1(avg(av))+" °C"]]);
- make({data:{labels:k.map(function(d){return d.slice(8,10)+"/"+d.slice(5,7)}),datasets:[{type:"bar",label:"Mín–máx (°C)",data:k.map(function(d,i){return [mn[i],mx[i]]}),backgroundColor:"#fec41899",borderColor:"#c98a00",borderWidth:1,borderRadius:6},{type:"line",label:"Promedio (°C)",data:av,borderColor:"#1b7a45",backgroundColor:"#1b7a45",tension:.3,pointRadius:4}]},options:opts(c)})}
-function gDual(){var c=ax();$("hint").textContent="Cuando sube la temperatura, la humedad relativa suele bajar.";
- make({type:"line",data:{labels:series().lab,datasets:[{label:"Temperatura (°C)",data:line("temp"),borderColor:"#c98a00",tension:.3,pointRadius:0,yAxisID:"y"},{label:"Humedad (%)",data:line("rh"),borderColor:"#2a6fa8",tension:.3,pointRadius:0,yAxisID:"y1"}]},options:opts(c,{scales:{y1:{position:"right",ticks:{color:c.t},grid:{drawOnChartArea:false}}}})})}
-function gRose(){var c=ax(),N=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"],cnt=[],sp=[],tot=0,i;
- if(D[0].wdir===undefined){$("hint").textContent="Esta gráfica estará disponible en unos minutos, cuando se actualicen los datos.";return}
- for(i=0;i<16;i++){cnt.push(0);sp.push(0)}
- D.forEach(function(r){if(r.wdir==null)return;var j=Math.round(r.wdir/22.5)%16;cnt[j]++;sp[j]+=r.was||0;tot++});
- var pct=cnt.map(function(x){return tot?r1(x/tot*100):0}),top=pct.indexOf(Math.max.apply(0,pct));
- $("hint").textContent="Cada sector indica de dónde sopla el viento y qué porcentaje del tiempo.";chips([["Dirección más frecuente",N[top]+" ("+pct[top]+" %)"]]);
- make({type:"polarArea",data:{labels:N,datasets:[{data:pct,backgroundColor:"rgba(27,122,69,.55)",borderColor:"#1b7a45",borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(x){var j=x.dataIndex;return pct[j]+" % del tiempo · viento medio "+(cnt[j]?Math.round(sp[j]/cnt[j]):0)+" km/h"}}}},scales:{r:{startAngle:-11.25,ticks:{color:c.t,backdropColor:"transparent",callback:function(v){return v+" %"}},grid:{color:c.g},angleLines:{color:c.g},pointLabels:{display:true,centerPointLabels:true,color:c.t,font:{size:13}}}}}})}
-// ---- ETo y ETc diarias (data/diario.csv y data/etc_diaria.csv, calculadas por eto.py) ----
-var PO={s:[["1","Hoy"],["7","Últimos 7 días"],["30","Últimos 30 días"]],l:[["7","Últimos 7 días"],["30","Últimos 30 días"],["365","Último año"],["0","Todo el historial"]]},CC=["#1b7a45","#2a6fa8","#c98a00","#d9480f","#7c3aed","#0f766e","#b45309","#be185d","#52695c","#4d7c0f","#1d4ed8"];
-function syncPer(){var k=kind.value,a=(k=="eto"||k=="etc")?PO.l:PO.s,cur=per.value,ok=a.some(function(x){return x[0]==cur});per.innerHTML=a.map(function(x){return "<option value="+x[0]+">"+x[1]+"</option>"}).join("");per.value=ok?cur:a[0][0]}
-var CA={};
-function csv(u){var c=CA[u];if(c&&Date.now()-c.t<6e5)return c.p;var p=fetch(u+"?t="+Math.floor(Date.now()/6e5)).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){var L=t.trim().split(/\r?\n/),h=L.shift().split(",");return L.filter(Boolean).map(function(l){var q=l.split(","),o={};h.forEach(function(k,i){o[k]=q[i]});return o})});CA[u]={t:Date.now(),p:p};p.catch(function(){delete CA[u]});return p}
-function win(R){var v=+per.value;if(!v||!R.length)return R;var s=iso(new Date(Date.parse(R[R.length-1].fecha)-(v-1)*864e5));return R.filter(function(r){return r.fecha>=s})}
-function dlab(d,largo){return d.slice(8,10)+"/"+d.slice(5,7)+(largo?"/"+d.slice(2,4):"")}
-function gEto(t){csv("data/diario.csv").then(function(A){if(t!=tk)return;var c=ax(),R=win(A.filter(function(r){return r.eto_mm!==""&&r.eto_mm!=null}));
- if(!R.length){$("hint").textContent="Aún no hay datos de ETo para este periodo.";return}
- var ok=R.filter(function(r){return r.completo=="True"}),tot=ok.reduce(function(a,r){return a+ +r.eto_mm},0),lg=R.length>60;
- $("hint").textContent="ETo: agua que pierde cada día un pasto bien regado (1 mm = 1 litro por m²), calculada con los datos de la estación (FAO-56 Penman-Monteith). Las barras claras son días con lecturas incompletas: el valor es menor al real y no se suma.";
- chips([["Promedio diario",ok.length?r1(tot/ok.length)+" mm":"–"],["Acumulado (solo días completos)",r1(tot)+" mm"],["Días completos",ok.length+" de "+R.length]]);
- make({type:"bar",data:{labels:R.map(function(r){return dlab(r.fecha,lg)}),datasets:[{label:"ETo (mm/día)",data:R.map(function(r){return +r.eto_mm}),backgroundColor:R.map(function(r){return r.completo=="True"?"#1b7a45cc":"#1b7a4544"}),borderRadius:lg?0:4}]},
-  options:opts(c,{plugins:{legend:{display:false},tooltip:{callbacks:{title:function(x){return R[x[0].dataIndex].fecha},label:function(x){var r=R[x.dataIndex];return r1(+r.eto_mm*10)/10+" mm/día"+(r.completo=="True"?"":" · día incompleto ("+r.lecturas+" de 48 lecturas)")}}}}})})
- }).catch(function(){if(t==tk)$("hint").textContent="No se pudieron cargar los datos diarios."})}
-function gEtc(t){csv("data/etc_diaria.csv").then(function(A){if(t!=tk)return;var c=ax(),R=win(A.filter(function(r){return r.etc_mm!==""&&r.etc_mm!=null}));
- if(!R.length){$("hint").textContent="Aún no hay datos de ETc para este periodo.";return}
- var fe=[],ids=[],nom={},M={},sum={},cu={};
- R.forEach(function(r){if(fe.indexOf(r.fecha)<0)fe.push(r.fecha);if(ids.indexOf(r.id)<0){ids.push(r.id);cu[r.cultivo]=(cu[r.cultivo]||0)+1}(M[r.id]=M[r.id]||{})[r.fecha]=r;nom[r.id]=r});
- fe.sort();var lg=fe.length>60;
- var ds=ids.map(function(id,i){var n=nom[id],lab=n.cultivo+(cu[n.cultivo]>1?" · "+n.campo:""),col=CC[i%CC.length],tot=0;
-  var pts=fe.map(function(d){return M[id][d]||null});pts.forEach(function(r){if(r&&r.completo=="True")tot+=+r.etc_mm});sum[id]=[lab,tot];
-  return{label:lab,data:pts.map(function(r){return r?+r.etc_mm:null}),borderColor:col,backgroundColor:col,tension:.25,spanGaps:false,pointRadius:lg?0:3,pointBackgroundColor:pts.map(function(r){return r&&r.completo!="True"?"#ffffff":col}),borderWidth:2,_r:pts}});
- $("hint").textContent="ETc = Kc × ETo: agua que necesita cada lote por día (1 mm = 1 litro por m²). El Kc cambia con la etapa del cultivo (inicial, desarrollo, media y final). Los puntos vacíos son días con ETo incompleta y no se suman al acumulado.";
- chips(ids.map(function(id){return [sum[id][0],r1(sum[id][1])+" mm"]}));
- make({type:"line",data:{labels:fe.map(function(d){return dlab(d,lg)}),datasets:ds},options:opts(c,{plugins:{legend:{labels:{color:c.t}},tooltip:{callbacks:{title:function(x){return fe[x[0].dataIndex]},label:function(x){var r=x.dataset._r[x.dataIndex];return r?x.dataset.label+": "+r.etc_mm+" mm (Kc "+(+r.kc).toFixed(2)+", "+r.etapa.toLowerCase()+")":null}}}}})})
- }).catch(function(){if(t==tk)$("hint").textContent="No se pudieron cargar los datos diarios."})}
-function gRain(){var m={},c=ax();D.forEach(function(r){var d=r.ts.slice(0,10);m[d]=Math.max(m[d]||0,r.drf||0)});var k=Object.keys(m).sort(),v=k.map(function(d){return m[d]});
- $("hint").textContent=Math.max.apply(0,v)>0?"Lluvia acumulada en cada día según el sensor de la estación.":"No se registró lluvia en este periodo.";chips([["Total del periodo",r1(v.reduce(function(a,b){return a+b},0))]]);
- make({type:"bar",data:{labels:k.map(function(d){return d.slice(8,10)+"/"+d.slice(5,7)}),datasets:[{label:"Lluvia por día",data:v,backgroundColor:"#2a6fa8bb",borderRadius:6}]},options:opts(c)})}
-function social(el,nombre,url,ic,handle){el.innerHTML='<div class="fb-card"><span class="ic '+ic+'"><svg><use href="#i-'+ic+'"/></svg></span><b>'+handle+'</b><p>Mira nuestras publicaciones más recientes.</p><a class="btn" href="'+url+'" target="_blank" rel="noopener">Ver en '+nombre+'</a></div>'}
-var FBL="https://www.facebook.com/profile.php?id=61556795847342";
-function fb(){var el=$("fb"),w=Math.max(180,Math.min(500,el.clientWidth||320));
- if(el.dataset.w&&Math.abs(el.dataset.w-w)<30)return;el.dataset.w=w;
- el.innerHTML='<div class="fbw"><iframe title="Publicaciones de Facebook" src="https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(FB_PAGE_URL)+'&tabs=timeline&width='+w+'&height=560&small_header=true&hide_cover=true&show_facepile=false" width="'+w+'" height="560" style="border:0;overflow:hidden;color-scheme:light" loading="lazy"></iframe></div>'}
-var rt;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if($("novedades").classList.contains("on"))fbShow()},300)});
-function fbShow(){if(FB_PAGE_URL)fb();else social($("fb"),"Facebook",FBL,"fb","Facebook")}
-var mb=$("mb"),mn=$("menu");
-function cm(o){mn.classList.toggle("open",o);mb.setAttribute("aria-expanded",o);mb.setAttribute("aria-label",o?"Cerrar menú":"Abrir menú")}
-mb.addEventListener("click",function(e){e.stopPropagation();cm(!mn.classList.contains("open"))});
-mn.addEventListener("click",function(e){if(e.target.tagName=="A")cm(false)});
-document.addEventListener("click",function(e){if(!mn.contains(e.target))cm(false)});
-addEventListener("keydown",function(e){if(e.key=="Escape")cm(false)});
-var V=["inicio","resumen","parametros","novedades","proyecto"];
-function show(){var h=(location.hash||"#inicio").slice(1);if(h=="graficas")h="parametros";if(h=="datos")h="inicio";
- if(h=="contacto"&&document.querySelector(".view.on"))return;
- if(V.indexOf(h)<0)h="inicio";
- V.forEach(function(v){$(v).classList.toggle("on",v==h)});
- document.querySelectorAll("nav a[data-v]").forEach(function(a){a.classList.toggle("on",a.dataset.v==h)});
- if(h=="parametros")draw();if(h=="novedades")fbShow();scrollTo(0,0)}
-addEventListener("hashchange",show);
-sel.addEventListener("change",draw);kind.addEventListener("change",function(){syncPer();load()});
-per.addEventListener("change",load);
-if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",draw);
-syncPer();show();latest();load();setInterval(latest,300000);setInterval(load,300000);
-</script>
-</body>
-</html>
+try{$('#visit-form').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),
+ body=`Nombre: ${f.get('n')}\nCorreo: ${f.get('c')}\nInstitución: ${f.get('i')}\nFecha propuesta: ${f.get('f')}\nMotivo: ${f.get('m')||'-'}`,
+ a=document.createElement('a');a.href='mailto:contacto@cecasp-piura.org?subject='+encodeURIComponent('Solicitud de visita al CECASP')+'&body='+encodeURIComponent(body);document.body.appendChild(a);a.click();a.remove();$('#visit-alert').hidden=false})}catch(e){console.error(e)}
+
+const INFO={bambu:['Invernadero bambú','Estructura eco-amigable adaptada al clima de Piura para hidroponía simplificada.',['[Estructura de bambú]','[Cultivos de ejemplo]','[Ventilación natural]'],'#c48b49'],
+ hidro:['Invernadero hidropónico','Sistemas NFT para maximizar el rendimiento hídrico.',['[Solución nutritiva recirculada]','[Menor consumo de agua]','[Control de ambiente]'],'#a855f7'],
+ vivero:['Invernadero vivero','Propagación viverística con microclima controlado.',['[Germinación de semillas]','[Plántulas de ejemplo]','[Protección del clima]'],'#10b981'],
+ ferti:['Invernadero fertirriego','Área automatizada de producción de hortalizas de alta precisión.',['[Riego por goteo]','[Dosificación de nutrientes]','[Monitoreo de humedad]'],'#0284c7']};
+function buildViewer(){
+ const box=$('#viewer'),cv=$('#vCv'),r=mkR(cv),sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(35,1.33,.03,120);
+ r.setPixelRatio(Math.min(devicePixelRatio*1.5,3));r.toneMapping=THREE.NeutralToneMapping;
+ const aniso=r.capabilities.getMaxAnisotropy();
+ sc.fog=new THREE.Fog(0x0f172a,40,90);lights(sc,8,.6);fit(box,r,cam);
+ const base=mesh(new THREE.CylinderGeometry(4.6,4.8,.3,36),MT.path);base.position.y=-.15;base.receiveShadow=true;sc.add(base);
+ const pivot=new THREE.Group();sc.add(pivot);const cache={},loader=new GLTFLoader();
+ let cur=null,tok=0,vis=false,started=false,idle=0,still=false,xray=false,signI=0;
+ const g={ry:.6,rx:.35,dist:13,t:new THREE.Vector3(0,1.6,0)},c={ry:.6,rx:.35,dist:13,t:new THREE.Vector3(0,1.6,0)};
+ const reset=()=>{g.ry=.6;g.rx=.35;g.dist=13;g.t.set(0,1.6,0);still=false;idle=0};
+  const SIGN=/letrero|cartel|banner/i;
+ function prep(o){const signs=[];o.traverse(m=>{if(!m.isMesh)return;const ms=Array.isArray(m.material)?m.material:[m.material];
+  const sign=ms.some(x=>x&&x.map&&SIGN.test((m.name||'')+' '+(x.name||'')));m.castShadow=m.receiveShadow=!sign;
+  ms.forEach(x=>{if(!x)return;['map','emissiveMap','normalMap','roughnessMap'].forEach(k=>{if(x[k])x[k].anisotropy=aniso});
+   if(x.transparent){x.depthWrite=false;x.userData.o0=x.opacity}
+   if(sign&&x.map){x.side=THREE.DoubleSide;x.metalness=0;x.roughness=1;x.emissive=new THREE.Color(0xffffff);x.emissiveMap=x.map;x.emissiveIntensity=.45;x.needsUpdate=true}});
+  if(sign)signs.push(m)});return signs}
+ const norm=(o,fb)=>{const signs=prep(o),w=new THREE.Group();w.add(o);const b=new THREE.Box3().setFromObject(o),s=b.getSize(new THREE.Vector3()),ct=b.getCenter(new THREE.Vector3());
+  o.position.set(-ct.x,-b.min.y,-ct.z);w.scale.setScalar(6/Math.max(s.x,s.y,s.z,1e-6));w.userData.fb=fb;w.userData.signs=signs;return w};
+ const load=k=>cache[k]?Promise.resolve(cache[k]):new Promise(res=>{let done=false;const ok=(o,fb)=>{if(done)return;done=true;res(cache[k]=norm(o,fb))},fb=e=>{if(e)console.error(e);try{ok(makeGH(5,7,2),true)}catch(x){console.error(x)}};
+  if(!M[k])return fb();fetch(M[k]).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.arrayBuffer()}).then(buf=>loader.parse(buf,'',gl=>{try{ok(gl.scene,false)}catch(e){fb(e)}},fb)).catch(fb)});
+ const applyX=()=>{if(!cur)return;cur.traverse(m=>{if(!m.isMesh)return;(Array.isArray(m.material)?m.material:[m.material]).forEach(x=>{if(x&&x.userData.o0!==undefined)x.opacity=xray?Math.min(x.userData.o0,.08):x.userData.o0})})};
+ const cards=$('#ghcards');
+ for(const k of Object.keys(INFO)){const [n,s,f,col]=INFO[k],b=document.createElement('button');b.className='gh';b.dataset.k=k;b.style.setProperty('--c',col);
+  b.innerHTML='<h4>'+n+'</h4><p>'+s+'</p><div class="more"><b>Características clave</b><ul>'+f.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';b.onclick=()=>{started=true;show(k)};cards.appendChild(b)}
+ async function show(k){const my=++tok;document.querySelectorAll('.gh').forEach(t=>t.classList.toggle('on',t.dataset.k===k));$('#vtitle').textContent=INFO[k][0];
+  cv.style.opacity=0;$('#vload').style.display='block';
+  const [m]=await Promise.all([load(k),new Promise(x=>setTimeout(x,320))]);if(my!==tok)return;
+  if(cur)pivot.remove(cur);cur=m;pivot.add(m);signI=0;reset();applyX();$('#note').hidden=!m.userData.fb;$('#vload').style.display='none';cv.style.opacity=1}
+ function focusSign(){if(!cur)return;const s=cur.userData.signs||[];if(!s.length){const n=$('#note');n.textContent='Este modelo no tiene cartel';n.hidden=false;setTimeout(()=>{n.textContent='Modelo en preparación';n.hidden=!cur.userData.fb},1800);return}
+  const m=s[signI++%s.length];cur.updateMatrixWorld(true);const b=new THREE.Box3().setFromObject(m),ctr=b.getCenter(new THREE.Vector3()),sz=b.getSize(new THREE.Vector3()),n=new THREE.Vector3(0,0,1),na=m.geometry.attributes.normal;
+  if(na)n.fromBufferAttribute(na,0).transformDirection(m.matrixWorld);else if(sz.x<sz.z)n.set(1,0,0);
+  if(n.dot(cam.position.clone().sub(ctr))<0)n.negate();
+  const th=Math.tan(cam.fov*Math.PI/360);g.t.copy(ctr);g.dist=clamp(Math.max(sz.y/2/th,Math.max(sz.x,sz.z)/2/(th*cam.aspect))*1.25,.6,26);
+  g.ry=Math.atan2(n.x,n.z);g.rx=clamp(Math.asin(clamp(n.y,-1,1)),.02,.6);still=true}
+ new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!started){started=true;show('bambu')}}).observe(box);
+ const ps=new Map(),hyp=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+ const panBy=(dx,dy)=>{const s=2*g.dist*Math.tan(cam.fov*Math.PI/360)/box.clientHeight,m=cam.matrixWorld.elements;g.t.x+=(-m[0]*dx+m[4]*dy)*s;g.t.y+=(-m[1]*dx+m[5]*dy)*s;g.t.z+=(-m[2]*dx+m[6]*dy)*s};
+ box.addEventListener('pointerdown',e=>{if(e.target.closest('.vc'))return;box.setPointerCapture(e.pointerId);ps.set(e.pointerId,e);idle=4});
+ box.addEventListener('pointermove',e=>{const p=ps.get(e.pointerId);if(!p)return;idle=4;const dx=e.clientX-p.clientX,dy=e.clientY-p.clientY;
+  if(ps.size===1){if((e.buttons&6)||e.shiftKey)panBy(dx,dy);else{g.ry-=dx*.008;g.rx=clamp(g.rx+dy*.006,.02,1.4)}}
+  else if(ps.size===2){const o=[...ps.values()].find(q=>q.pointerId!==e.pointerId),dn=hyp(e,o),dp=hyp(p,o);if(dn>0)g.dist=clamp(g.dist*dp/dn,.6,26);panBy(dx/2,dy/2)}
+  ps.set(e.pointerId,e)});
+ ['pointerup','pointercancel'].forEach(t=>box.addEventListener(t,e=>ps.delete(e.pointerId)));
+ box.addEventListener('contextmenu',e=>e.preventDefault());box.addEventListener('dblclick',e=>{if(!e.target.closest('.vc'))reset()});
+ box.addEventListener('wheel',e=>{e.preventDefault();idle=4;const nd=clamp(g.dist*Math.exp(e.deltaY*.0012),.6,26),fr=1-nd/g.dist,rc=box.getBoundingClientRect(),nx=((e.clientX-rc.left)/rc.width-.5)*2,ny=-((e.clientY-rc.top)/rc.height-.5)*2,hh=g.dist*Math.tan(cam.fov*Math.PI/360),hw=hh*cam.aspect,m=cam.matrixWorld.elements;
+  g.t.x+=(m[0]*nx*hw+m[4]*ny*hh)*fr;g.t.y+=(m[1]*nx*hw+m[5]*ny*hh)*fr;g.t.z+=(m[2]*nx*hw+m[6]*ny*hh)*fr;g.dist=nd},{passive:false});
+ $('#zin').onclick=()=>g.dist=clamp(g.dist*.65,.6,26);$('#zout').onclick=()=>g.dist=clamp(g.dist*1.5,.6,26);$('#rst').onclick=reset;$('#sign').onclick=focusSign;
+ $('#xray').onclick=e=>{xray=!xray;e.currentTarget.classList.toggle('on',xray);applyX()};
+ const big=()=>{const on=box.classList.toggle('big');document.body.style.overflow=on?'hidden':'';$('#big').textContent=on?'✕':'⛶'};
+ $('#big').onclick=big;addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('big'))big()});
+ tasks.push(dt=>{if(!vis)return;idle=Math.max(0,idle-dt);if(!idle&&!ps.size&&!still)g.ry+=dt*.25;
+  const f=1-Math.exp(-dt*7);c.ry+=(g.ry-c.ry)*f;c.rx+=(g.rx-c.rx)*f;c.dist+=(g.dist-c.dist)*f;c.t.lerp(g.t,f);
+  cam.position.set(c.t.x+c.dist*Math.cos(c.rx)*Math.sin(c.ry),c.t.y+c.dist*Math.sin(c.rx),c.t.z+c.dist*Math.cos(c.rx)*Math.cos(c.ry));cam.lookAt(c.t);cam.updateMatrixWorld();r.render(sc,cam)})}
+
+try{buildViewer()}catch(e){console.error('viewer',e)}
+requestAnimationFrame(function loop(now){const dt=Math.min(.05,(now-last)/1e3);last=now;for(const f of tasks){try{f(dt)}catch(e){console.error(e)}}requestAnimationFrame(loop)});
+</script></body></html>
